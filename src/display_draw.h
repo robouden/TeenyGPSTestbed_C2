@@ -172,7 +172,7 @@ void display_refresh() {
         // GPS Clock
         displayPV.prt_str(getGPSISO8601DateTimeStr(), 19, 6, 32);
         // GPS Location
-        if(true || gps.isLocationValid()) {
+        if(gps.isLocationValid()) {
           displayPV.prt_str(getLatitudeStr(gps.getLatitude()), 10, 0, 48);
           displayPV.prt_str(getLongitudeStr(gps.getLongitude()), 10, 120, 48);
           sprintf(_dispStr, "H=%s", getHeadingStr(gps.getHeading()));
@@ -213,7 +213,7 @@ void display_refresh() {
           }
         } else {
           sprintf(_dispStr, "** NO NAVSAT DATA **");
-          displayPV.prt_str(_dispStr, 19, 0, 64);
+          displayPV.prt_str(_dispStr, 20, 0, 64);
         }
         sprintf(_dispStr, "L%XD%XT%X NS%XS%dH%dU%d",
                 gps.isLocationValid(), gps.isDateValid(), gps.isTimeValid(),

@@ -10,7 +10,7 @@ TeenyGPSEmulate emulator;
 bool emulator_setup(HardwareSerial &serialPort, uint32_t baudRate) {
   if(emulator.init(serialPort, baudRate)) {
     emulatorEnabled = true;
-    emulatorSDCardEnabled = false; //sdcard_openLogFile(0);
+    emulatorSDCardEnabled = sdcard_openLogFile(0);
   } else {
     emulatorEnabled = false;
     emulatorSDCardEnabled = false;
@@ -21,7 +21,7 @@ bool emulator_setup(HardwareSerial &serialPort, uint32_t baudRate) {
 /********************************************************************/
 void emulator_end() {
   if(emulatorSDCardEnabled) {
-    //sdcard_closeLogFile();
+    sdcard_closeLogFile();
   }
 }
 
