@@ -162,7 +162,7 @@ bool TeenyGPSConnect::getNAVPVT() {
     }
     return true;
   }
-  // else worker_idle
+  // else lost packet(s)
   if(time_getnavpvt.isExpired()) {
     data.location_fixType = 0;
     data.location_valid = false;
@@ -268,9 +268,18 @@ bool TeenyGPSConnect::getNAVSAT() {
   // getNAVSAT will return true if there actually is fresh
   // navigation satellite data.
   if(gnss.getNAVSAT()) {
+    time_getnavsat.restart();
+
     gnss.getNAVSATPacket(navsatPacket);
     gnss.getNAVSATInfo(navsatInfo);
     return true;
+  }
+  // else lost packet(s)
+  if(time_getnavsat.isExpired()) {
+    navsatPacket.validPacket = false;
+    navsatInfo.numSvs = 0;
+    navsatInfo.numSvsHealthy = 0;
+    navsatInfo.numSvsUsed = 0;
   }
   return false;
 }

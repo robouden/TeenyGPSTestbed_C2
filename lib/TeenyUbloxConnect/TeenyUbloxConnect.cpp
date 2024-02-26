@@ -507,7 +507,6 @@ uint8_t TeenyUbloxConnect::getLostNAVSATPacketCount() {
 /********************************************************************/
 /********************************************************************/
 bool TeenyUbloxConnect::getNAVPVT() {
-  checkUblox();
   processIncomingPacket();
   return processNAVPVTPacket();
 }
@@ -657,7 +656,6 @@ uint16_t TeenyUbloxConnect::getPDOP() {
 /********************************************************************/
 /********************************************************************/
 bool TeenyUbloxConnect::getNAVSAT() {
-  checkUblox();
   processIncomingPacket();
   return processNAVSATPacket();
 }

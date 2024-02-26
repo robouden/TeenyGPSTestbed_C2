@@ -19,7 +19,7 @@
 // Reset
 void device_reset() {
   // send reboot command -----
-  //SCB_AIRCR = 0x05FA0004; // teensy4.1
+  ESP.restart();
 }
 
 /********************************************************************/
@@ -292,6 +292,7 @@ void loop() {
           emulator.sendPVTPacket();
           //statusLED.pulse(_ubxNAVPVTInfo.locationValid ? 2 : 1);
         }
+        displayRefresh = true;
       }
       break;
   }

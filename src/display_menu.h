@@ -1005,7 +1005,7 @@ bool display_setup() {
   display.setTextColor(WHITE);
   display.createSprite(240, 320); //320x240 rotated 90 degrees
   display_clearDisplay();
-  displayPV.prt_str("TeenyGPSTestbed_M0", 20, 0, 0);
+  displayPV.prt_str("TeenyGPSTestbed_C2", 20, 0, 0);
   display_display();
   delay(1000);
   displayEnabled = true;

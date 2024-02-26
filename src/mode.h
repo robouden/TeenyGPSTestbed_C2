@@ -37,7 +37,7 @@ void deviceMode_init() {
     case DM_GPSNSAT:
       //statusLED.pulse_repeat(1);
       gpsSerial = &Serial2;
-      if(gps.gnss_init(*gpsSerial, GPS_BAUD_RATE, 1, 20)) {
+      if(gps.gnss_init(*gpsSerial, GPS_BAUD_RATE, 1, 10)) {
         gpsEnabled = true;
         sprintf(_dispStr, " GPS CONN UBPV=%02d.%02d",
                 gps.getProtocolVersionHigh(),

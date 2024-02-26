@@ -35,10 +35,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // GNSS Config Variables
 const uint32_t GPS_BAUD_RATE      = 38400;
-const uint16_t GPS_INVALID_YEAR   = 2000;
-const float    GPS_PDOP_THRESHOLD = 5.0;  // Exact value TBD
-const uint8_t  GPS_SATS_THRESHOLD = 4;    // strictly necessary is 4, but more is better
-const uint32_t GPS_FIX_AGE_LIMIT  = 1500;  // ms before we decide the fix is too old.
+const uint32_t NAVPVT_FIX_AGE_LIMIT  = 1500;  // when autoNAVPVTrate=1second
+const uint32_t NAVSAT_FIX_AGE_LIMIT  = 11000;  // when autoNAVSATrate=10seconds
 
 struct GnssData {
   uint8_t location_fixType;
@@ -204,10 +202,11 @@ class TeenyGPSConnect {
     void gnss_getProtocolVersion();
 
     // Age each item. If the corresponding timer times out, it's stale.
-    RBD::Timer location_timer{GPS_FIX_AGE_LIMIT};
-    RBD::Timer date_timer{GPS_FIX_AGE_LIMIT};
-    RBD::Timer time_timer{GPS_FIX_AGE_LIMIT};
-    RBD::Timer time_getnavpvt{GPS_FIX_AGE_LIMIT};  // if no response from getNAVPVT()
+    RBD::Timer time_getnavpvt{NAVPVT_FIX_AGE_LIMIT};  // if no response from getNAVPVT()
+    RBD::Timer location_timer{NAVPVT_FIX_AGE_LIMIT};
+    RBD::Timer date_timer{NAVPVT_FIX_AGE_LIMIT};
+    RBD::Timer time_timer{NAVPVT_FIX_AGE_LIMIT};
+    RBD::Timer time_getnavsat{NAVSAT_FIX_AGE_LIMIT};  // if no response from getNAVSAT()
 
 };
 

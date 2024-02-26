@@ -199,19 +199,26 @@ void display_refresh() {
         // GPS Clock
         displayPV.prt_str(getGPSISO8601DateTimeStr(), 19, 6, 32);
         // NAVSAT Data
-        ubloxPacket_t satPacket;
-        ubloxNAVSATInfo_t satInfo;
-        gps.getNAVSATPacket(satPacket);
-        gps.getNAVSATInfo(satInfo);
-        for(uint8_t i=0; i<9; i++) {
-          sprintf(_dispStr, "%d%02d/%02d",
-                  satInfo.svSortList[i].gnssId,satInfo.svSortList[i].svId, satInfo.svSortList[i].cno);
-          displayPV.prt_str(_dispStr, 6, (i%3)*84, ((i/3)*16)+48);
+        ubloxPacket_t navsatPacket;
+        ubloxNAVSATInfo_t navsatInfo;
+        gps.getNAVSATPacket(navsatPacket);
+        gps.getNAVSATInfo(navsatInfo);
+        if(navsatPacket.validPacket) {
+          for(uint8_t i=0; i<9; i++) {
+            sprintf(_dispStr, "%d%02d/%02d",
+                    navsatInfo.svSortList[i].gnssId,
+                    navsatInfo.svSortList[i].svId,
+                    navsatInfo.svSortList[i].cno);
+            displayPV.prt_str(_dispStr, 6, (i%3)*84, ((i/3)*16)+48);
+          }
+        } else {
+          sprintf(_dispStr, "** NO NAVSAT DATA **");
+          displayPV.prt_str(_dispStr, 19, 0, 64);
         }
         sprintf(_dispStr, "L%XD%XT%X NS%XS%dH%dU%d",
                 gps.isLocationValid(), gps.isDateValid(), gps.isTimeValid(),
-                satPacket.validPacket, satInfo.numSvs,
-                satInfo.numSvsHealthy, satInfo.numSvsUsed);
+                navsatPacket.validPacket, navsatInfo.numSvs,
+                navsatInfo.numSvsHealthy, navsatInfo.numSvsUsed);
         displayPV.prt_str(_dispStr, 20, 0, 96);
       } else if(menu.isMenuPageCurrent(menuPageGPSCapt)) {
         if(menu_captRxPktInProgress) {
