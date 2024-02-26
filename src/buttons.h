@@ -126,15 +126,12 @@ void buttons_click() {
 void buttons_setup() {
   insideButtonsClick = false; 
   // Button locations
-//M5.BtnA.set(10,  240, 110, 40); // default for rotation=1
-//M5.BtnB.set(130, 240, 70,  40); // default for rotation=1
-//M5.BtnC.set(230, 240, 80,  40); // default for rotation=1
-  M5.BtnA.set(240, 230, 50,  80);
-  M5.BtnB.set(240, 130, 50,  80);
-  M5.BtnC.set(240,  10, 50,  80);
+  M5.BtnA.set(240, 230,  80, 80);
+  M5.BtnB.set(240, 130,  70, 80);
+  M5.BtnC.set(240,  20, 110, 80);
   // Timing
-  M5.BtnA.tapTime = 100;
-  M5.BtnA.dbltapTime = 300;
+  M5.BtnA.tapTime = 100; // default=150
+  M5.BtnA.dbltapTime = 300; // default=300
   M5.BtnA.longPressTime = 350;
   M5.BtnB.tapTime = 100;
   M5.BtnB.dbltapTime = 300;

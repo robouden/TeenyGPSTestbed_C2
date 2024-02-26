@@ -25,7 +25,7 @@ void deviceMode_init() {
       gpsSerial = &Serial2;
       if(gps.gnss_init(*gpsSerial, GPS_BAUD_RATE)) {
         gpsEnabled = true;
-        sprintf(_dispStr, " GPS CONN UBPV=%02d.%02d",
+        sprintf(_dispStr, "GPS CONN UBPV=%02d.%02d",
                 gps.getProtocolVersionHigh(),
                 gps.getProtocolVersionLow());
         msg_update(_dispStr);
@@ -39,7 +39,7 @@ void deviceMode_init() {
       gpsSerial = &Serial2;
       if(gps.gnss_init(*gpsSerial, GPS_BAUD_RATE, 1, 10)) {
         gpsEnabled = true;
-        sprintf(_dispStr, " GPS CONN UBPV=%02d.%02d",
+        sprintf(_dispStr, "GPS CONN UBPV=%02d.%02d",
                 gps.getProtocolVersionHigh(),
                 gps.getProtocolVersionLow());
         msg_update(_dispStr);
