@@ -68,6 +68,7 @@ bool TeenyGPSConnect::gnss_init(HardwareSerial &serialPort_, uint32_t baudRate_,
   gnss.setAutoNAVSATrate(autoNAVSATRate); //Include NAV-SAT reports 
 
   // Mark the fix items invalid to start
+  data.packet_valid = false;
   data.location_fixType = 0;
   data.location_valid = false;
   data.date_valid = false;
@@ -119,6 +120,7 @@ bool TeenyGPSConnect::getNAVPVT() {
   // Do not use GNSS time, see u-blox spec section 9.
   if(gnss.getNAVPVT()) {
     time_getnavpvt.restart();
+    data.packet_valid = true;
 
     if(gnss.getGnssFixOk()) {
       data.location_fixType = gnss.getFixType();
@@ -164,6 +166,7 @@ bool TeenyGPSConnect::getNAVPVT() {
   }
   // else lost packet(s)
   if(time_getnavpvt.isExpired()) {
+    data.packet_valid = false;
     data.location_fixType = 0;
     data.location_valid = false;
     data.date_valid = false;
@@ -204,6 +207,9 @@ void TeenyGPSConnect::getNAVPVTPacket(uint8_t *packet) {
 }
 
 /********************************************************************/
+bool TeenyGPSConnect::isPacketValid() {
+  return data.packet_valid;
+}
 uint8_t TeenyGPSConnect::getLocationFixType() {
   return data.location_fixType;
 }

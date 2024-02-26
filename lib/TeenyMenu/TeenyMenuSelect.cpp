@@ -47,7 +47,7 @@ int TeenyMenuSelect::getSelectedOptionNum(void* variable) {
     }
     if (found) { return i; }
   }
-  if (!found) { return -1; }
+  return -1;
 }
 
 char* TeenyMenuSelect::getSelectedOptionName(void* variable) {

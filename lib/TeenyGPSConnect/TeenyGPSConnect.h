@@ -39,22 +39,26 @@ const uint32_t NAVPVT_FIX_AGE_LIMIT  = 1500;  // when autoNAVPVTrate=1second
 const uint32_t NAVSAT_FIX_AGE_LIMIT  = 11000;  // when autoNAVSATrate=10seconds
 
 struct GnssData {
-  uint8_t location_fixType;
+  bool    packet_valid;
   uint8_t pad00a;
   uint8_t pad00b;
   uint8_t pad00c;
-  uint8_t location_valid;
+  uint8_t location_fixType;
   uint8_t pad01a;
   uint8_t pad01b;
   uint8_t pad01c;
-  uint8_t date_valid;
+  uint8_t location_valid;
   uint8_t pad02a;
   uint8_t pad02b;
   uint8_t pad02c;
-  uint8_t time_valid;
+  uint8_t date_valid;
   uint8_t pad03a;
   uint8_t pad03b;
   uint8_t pad03c;
+  uint8_t time_valid;
+  uint8_t pad04a;
+  uint8_t pad04b;
+  uint8_t pad04c;
   // Position
   float_t latitude;     // Longitude in degrees
   float_t longitude;    // Longitude in degrees
@@ -62,45 +66,45 @@ struct GnssData {
   float_t heading;      // Heading of motion (2-D)
   // Confidence
   uint8_t numSV;        // Satellites used to calculate fix
-  uint8_t pad04a;
-  uint8_t pad04b;
-  uint8_t pad04c;
+  uint8_t pad05a;
+  uint8_t pad05b;
+  uint8_t pad05c;
   uint32_t hacc;        // Horizontal accuracy estimate in meters
   uint32_t vacc;        // Vertical accuracy estimate in meters
   float pdop;           // Positional Dilution of Precision
   // Date & Time
   uint16_t year;
-  uint8_t pad05a;
-  uint8_t pad05b;
-  uint8_t month;
   uint8_t pad06a;
   uint8_t pad06b;
-  uint8_t pad06c;
-  uint8_t day;
+  uint8_t month;
   uint8_t pad07a;
   uint8_t pad07b;
   uint8_t pad07c;
-  uint8_t hour;
+  uint8_t day;
   uint8_t pad08a;
   uint8_t pad08b;
   uint8_t pad08c;
-  uint8_t minute;
+  uint8_t hour;
   uint8_t pad09a;
   uint8_t pad09b;
   uint8_t pad09c;
-  uint8_t second;
+  uint8_t minute;
   uint8_t pad10a;
   uint8_t pad10b;
   uint8_t pad10c;
-  // Version
-  uint8_t protocolVersionHigh;
+  uint8_t second;
   uint8_t pad11a;
   uint8_t pad11b;
   uint8_t pad11c;
-  uint8_t protocolVersionLow;
+  // Version
+  uint8_t protocolVersionHigh;
   uint8_t pad12a;
   uint8_t pad12b;
   uint8_t pad12c;
+  uint8_t protocolVersionLow;
+  uint8_t pad13a;
+  uint8_t pad13b;
+  uint8_t pad13c;
 } __attribute__ ((__packed__));
 
 /********************************************************************/
@@ -136,6 +140,8 @@ class TeenyGPSConnect {
     void getNAVSATPacket(ubloxPacket_t &packet_);
     void getNAVSATInfo(ubloxNAVSATInfo_t &info_);
 
+    // Valid packet
+    bool isPacketValid();
     // location fix
     uint8_t getLocationFixType();
     bool isLocationValid();
